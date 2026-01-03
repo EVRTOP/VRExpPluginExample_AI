@@ -1,0 +1,11 @@
+Name,StepNumber,StepNameCN,StepNameEN,PartIDToAssemble,TargetSocketID,TutorialTextCN,TutorialTextEN,bShowARGuidance
+Step_001,1,放置一级火箭基座,Place First Stage Base,FirstStageBody_001,GroundSocket,首先，让我们放置一级火箭的主体结构。抓取一级火箭筒体，将其放置在地面装配点上。,First let's place the first stage main body. Grab the first stage body and place it on the ground socket.,true
+Step_002,2,安装主发动机,Install Main Engine,MainEngine_001,EngineSocket_001,现在安装主发动机。这是火箭最重要的部件之一，负责提供主要推力。,Now install the main engine. This is one of the most important components providing primary thrust.,true
+Step_003,3,连接涡轮泵,Connect Turbo Pump,TurboPump_001,PumpSocket_001,接下来安装涡轮泵。它负责以高压将燃料输送到发动机。,Next install the turbo pump. It delivers fuel to the engine at high pressure.,true
+Step_004,4,安装液氧舱,Install LOX Tank,LOXTank_001,LOXSocket_001,安装液氧舱。液氧是火箭燃料的氧化剂，温度极低为-183°C。,Install the LOX tank. Liquid oxygen is the oxidizer at extremely low temperature of -183°C.,true
+Step_005,5,安装燃料舱,Install Fuel Tank,FuelTank_001,FuelSocket_001,安装燃料舱。它储存液氢或煤油，与液氧混合燃烧产生推力。,Install the fuel tank. It stores liquid hydrogen or kerosene to burn with LOX.,true
+Step_006,6,安装级间段,Install Interstage,InterstageSection_001,InterstageSocket_001,安装级间段，它连接一级和二级火箭，并在一级分离后保护二级发动机。,Install the interstage section connecting stages and protecting second stage engine.,true
+Step_007,7,安装二级火箭,Install Second Stage,SecondStageBody_001,SecondStageSocket_001,现在安装二级火箭主体。二级火箭在一级分离后继续推进，将载荷送入轨道。,Now install the second stage body. It continues propulsion after first stage separation.,true
+Step_008,8,安装二级发动机,Install Second Engine,SecondEngine_001,SecondEngineSocket_001,为二级火箭安装发动机。虽然它比主发动机小，但在真空中效率更高。,Install second stage engine. Though smaller it's more efficient in vacuum.,true
+Step_009,9,安装整流罩左半,Install Left Fairing,FairingLeft_001,FairingLeftSocket_001,安装整流罩左半部分。整流罩在大气层内保护载荷免受空气动力学压力。,Install left fairing half. It protects payload from aerodynamic pressure in atmosphere.,true
+Step_010,10,安装整流罩右半,Install Right Fairing,FairingRight_001,FairingRightSocket_001,最后，安装整流罩右半部分，完成火箭装配！准备发射！,Finally install right fairing half and complete the rocket assembly! Ready for launch!,true

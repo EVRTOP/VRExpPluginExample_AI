@@ -1,0 +1,11 @@
+Name,PartNameCN,PartNameEN,PartType,DescriptionCN,DescriptionEN,AssemblyOrder,Mass,bIsRequired,DependentPartIDs
+FirstStageBody_001,一级火箭筒体,First Stage Body,FirstStageBody,一级火箭的主体结构，承载主发动机和燃料舱,Main body structure of first stage holding main engine and fuel tanks,1,2000.0,true,
+MainEngine_001,主发动机,Main Engine,MainEngineNozzle,火箭的主推进发动机，提供主要推力,Main propulsion engine providing primary thrust,2,500.0,true,FirstStageBody_001
+TurboPump_001,涡轮泵,Turbo Pump,TurboPump,为发动机输送燃料的高压泵,High-pressure pump delivering fuel to engine,3,80.0,true,MainEngine_001
+LOXTank_001,液氧舱,LOX Tank,LOXTank,储存液态氧的燃料舱,Tank storing liquid oxygen,4,800.0,true,MainEngine_001
+FuelTank_001,燃料舱,Fuel Tank,FuelTank,储存液氢或煤油的燃料舱,Tank storing liquid hydrogen or kerosene,5,900.0,true,LOXTank_001
+InterstageSection_001,级间段,Interstage Section,InterstageSection,连接一级和二级火箭的结构件,Structure connecting first and second stages,6,300.0,true,FuelTank_001
+SecondStageBody_001,二级火箭筒体,Second Stage Body,SecondStageBody,二级火箭的主体结构,Main body structure of second stage,7,800.0,true,InterstageSection_001
+SecondEngine_001,二级发动机,Second Stage Engine,MainEngineNozzle,二级火箭的推进发动机,Propulsion engine for second stage,8,200.0,true,SecondStageBody_001
+FairingLeft_001,整流罩左半,Fairing Left,FairingLeft,整流罩的左半部分，保护载荷,Left half of fairing protecting payload,9,150.0,true,SecondStageBody_001
+FairingRight_001,整流罩右半,Fairing Right,FairingRight,整流罩的右半部分，保护载荷,Right half of fairing protecting payload,10,150.0,true,FairingLeft_001
