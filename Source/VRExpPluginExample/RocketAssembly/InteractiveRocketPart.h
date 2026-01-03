@@ -37,7 +37,9 @@ public:
 	// ========== 零件数据 Part Data ==========
 	
 	// 零件数据引用 - Part Data Reference
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Rocket Part")
+	// 注意：此数据应从数据表加载，不应在编辑器中直接修改
+	// Note: This data should be loaded from data table, not modified directly in editor
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Rocket Part")
 	FRocketPartData PartData;
 
 	// 当前装配状态 - Current Assembly State
@@ -175,6 +177,10 @@ public:
 	// 是否被锁定 - Is locked
 	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "Rocket Part|Info")
 	bool IsLocked() const { return bIsLocked; }
+
+	// 从数据表加载零件数据 - Load part data from data table
+	UFUNCTION(BlueprintCallable, Category = "Rocket Part|Data")
+	bool LoadPartDataFromTable(class UDataTable* DataTable, FName RowName);
 
 protected:
 	// ========== 内部变量 Internal Variables ==========

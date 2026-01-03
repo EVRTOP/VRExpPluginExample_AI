@@ -6,6 +6,7 @@
 #include "Components/StaticMeshComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "Sound/SoundCue.h"
+#include "Engine/DataTable.h"
 
 AInteractiveRocketPart::AInteractiveRocketPart(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer)
@@ -297,9 +298,8 @@ bool AInteractiveRocketPart::AreDependenciesMet() const
 FText AInteractiveRocketPart::GetLocalizedPartName() const
 {
 	// 根据当前语言返回对应的零件名称
-	// 此处简化实现，实际应该根据游戏设置的语言来选择
-	
 	// TODO: Implement proper localization based on game settings
+	// 默认返回英文，如果英文为空则返回中文
 	return PartData.PartNameEN.IsEmpty() ? PartData.PartNameCN : PartData.PartNameEN;
 }
 
@@ -307,18 +307,14 @@ FText AInteractiveRocketPart::GetLocalizedPartDescription() const
 {
 	// 根据当前语言返回对应的零件描述
 	// TODO: Implement proper localization based on game settings
+	// 默认返回英文，如果英文为空则返回中文
 	return PartData.DescriptionEN.IsEmpty() ? PartData.DescriptionCN : PartData.DescriptionEN;
 }
 
 FString AInteractiveRocketPart::GetPartTypeString() const
 {
-	// 将枚举转换为字符串
-	const UEnum* EnumPtr = FindObject<UEnum>(ANY_PACKAGE, TEXT("ERocketPartType"), true);
-	if (EnumPtr)
-	{
-		return EnumPtr->GetNameStringByValue((int64)PartData.PartType);
-	}
-	return FString("Unknown");
+	// 将枚举转换为字符串 - 使用 StaticEnum 更可靠
+	return StaticEnum<ERocketPartType>()->GetNameStringByValue((int64)PartData.PartType);
 }
 
 void AInteractiveRocketPart::UpdateVisuals()
@@ -339,4 +335,48 @@ void AInteractiveRocketPart::PlayAssemblyVFX(bool bSuccess)
 	// 播放视觉特效
 	// TODO: 在蓝图中实现特效播放
 	// 使用 UGameplayStatics::SpawnEmitterAtLocation
+}
+
+bool AInteractiveRocketPart::LoadPartDataFromTable(UDataTable* DataTable, FName RowName)
+{
+	if (!DataTable)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("LoadPartDataFromTable: DataTable is null"));
+		return false;
+	}
+
+	// 从数据表中查找行数据
+	FRocketPartData* RowData = DataTable->FindRow<FRocketPartData>(RowName, TEXT(""));
+	if (!RowData)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("LoadPartDataFromTable: Row '%s' not found in data table"), *RowName.ToString());
+		return false;
+	}
+
+	// 复制数据
+	PartData = *RowData;
+
+	// 如果有3D模型引用，加载并设置
+	if (PartData.PartMesh.IsValid() || !PartData.PartMesh.IsNull())
+	{
+		UStaticMesh* Mesh = PartData.PartMesh.LoadSynchronous();
+		if (Mesh && GetStaticMeshComponent())
+		{
+			GetStaticMeshComponent()->SetStaticMesh(Mesh);
+		}
+	}
+
+	// 如果有材质引用，加载并设置
+	if (PartData.PartMaterial.IsValid() || !PartData.PartMaterial.IsNull())
+	{
+		UMaterialInterface* Material = PartData.PartMaterial.LoadSynchronous();
+		if (Material && GetStaticMeshComponent())
+		{
+			DefaultMaterial = Material;
+			GetStaticMeshComponent()->SetMaterial(0, Material);
+		}
+	}
+
+	UE_LOG(LogTemp, Log, TEXT("LoadPartDataFromTable: Successfully loaded part data for '%s'"), *PartData.PartNameEN.ToString());
+	return true;
 }
